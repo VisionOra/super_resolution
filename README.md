@@ -4,7 +4,7 @@
 
 **Progress:**
 
- Markup : 1. Researched about esdr
+          1. Researched about esdr
           2. Understanding of the code
           3. Change the data.py file (Data generator)
 
