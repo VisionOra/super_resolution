@@ -1,8 +1,9 @@
-# Trying to train this Super resolution model in Medical Images
+# Make your image better with this git
 
 
 
-**Progress:**
+**Git Progress:**
+          
           v.0.0
           1. Researched about esdr
           2. Understanding of the code
@@ -15,9 +16,8 @@
 
 1. Download the dataset from Gdrive
 
-https://drive.google.com/drive/folders/1zKEvX3ubm19kHdWFQEpD6T-0NlCE6opp?usp=sharing
+        https://drive.google.com/drive/folders/1zKEvX3ubm19kHdWFQEpD6T-0NlCE6opp?usp=sharing
 
-Will update more information with release 0.0 will be ready.
 
 
 2. Training of Edsr
