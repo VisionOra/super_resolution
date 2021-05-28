@@ -19,15 +19,15 @@ def resolve(model, lr_batch):
 
 
 def evaluate(model, dataset):
-    psnr_values, ssim = [], []
+    psnr_values, ssim_values = [], []
     for lr, hr in dataset:
         sr = resolve(model, lr)
         psnr_value = psnr(hr, sr)[0]
         ssim_value = ssim(hr, sr)[0]
         psnr_values.append(psnr_value)
-        ssim.append(ssim_value)
+        ssim_values.append(ssim_value)
     
-    return [tf.reduce_mean(psnr_values), tf.reduce_mean(psnr_values)]
+    return [tf.reduce_mean(psnr_values), tf.reduce_mean(ssim_values)]
 
 
 # ---------------------------------------
