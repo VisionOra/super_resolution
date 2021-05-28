@@ -56,10 +56,10 @@ class Trainer:
                 loss_mean.reset_states()
 
                 # Compute PSNR on validation dataset
-                psnr_value = self.evaluate(valid_dataset)
+                psnr_value, ssim_value = self.evaluate(valid_dataset)
 
                 duration = time.perf_counter() - self.now
-                print(f'{step}/{steps}: loss = {loss_value.numpy():.3f}, PSNR = {psnr_value.numpy():3f} ({duration:.2f}s)')
+                print(f'{step}/{steps}: loss = {loss_value.numpy():.3f}, SSIM = {ssim_value.numpy():3f}, PSNR {psnr_value.numpy():3f}, ({duration:.2f}s)')
 
                 if save_best_only and psnr_value <= ckpt.psnr:
                     self.now = time.perf_counter()
