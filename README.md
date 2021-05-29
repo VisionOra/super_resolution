@@ -68,9 +68,44 @@ Content Loss: We use two types of content loss in this paper : pixelwise MSE los
 ![Image](docs/images/training_logs_srgans.png)
 
 
+# WRGans (Wasserstein distance)
+
+For GAN models that were not designed for text generation, we will first introduce a
+distance measurement method called “Earth-Mover (also called Wasserstein) distance”,
+W(q, p), which is informally defined as the minimum cost of transporting mass in order
+to transform the distribution q into the distribution p (where the cost is the mass times
+the transport distance). Under mild assumptions, W(q, p) is continuous everywhere
+and differentiable almost everywhere [10]. The “Earth-Mover distance” W(q, p) can be
+defined as:
+
+W(q, p) = min
+γ
+E(q,p)∼γkq − pk, (1)
+
+where γ is a probability distribution that satisfies the constraints:
+
+Z
+γ(q, p)dq = Pg(q),
+
+Z
+γ(q, p)dp = Pf
+(p). (2)
+
+Instead, WGAN was proposed to use the Wasserstein distance as the loss to solve
+the unstable problem in GAN training. WGAN theoretically points out the defects of
+the original GAN. WGAN-GP was used to propose another truncation pruning strategy—
+“gradient penalty”—to make the training process more stable and achieve higher-quality
+generation results. The f-GAN [22] used variable dispersion to minimize the training of a
+generative adversarial network of generative neural samplers. These methods also have
+reference values for text generation.
+
+
+![Image](docs/images/wrgan_art.png)
+
 
 # Conclusions
-As from the numbers of validation losses computed while training. Edsr is performing better than SRGans. 
+As from the numbers of validation losses computed while training. Edsr is performing better than SRGans. From the results of wrgans I realised that it is still instable but its really
+an improved version REL-Gan. It takes a lot of GPU to memory to train. 1 batch size of (300* 300) image at a time to train its really expensive and its epoch takes 4 min on nvidia 3070. 
 
 
 # Hardware and software compatibility.
@@ -97,6 +132,7 @@ As from the numbers of validation losses computed while training. Edsr is perfor
 2. Tensorflow Documentation
 3. Stack Overflow https://stackoverflow.com/users/7959545/sohaib-anwaar
 4. Geeks for Geeks https://www.geeksforgeeks.org/super-resolution-gan-srgan/
+5. WRGans Research Paper https://www.researchgate.net/publication/348753509_WRGAN_Improvement_of_RelGAN_with_wasserstein_loss_for_text_generation
 
 
 **Git Progress:**
@@ -112,4 +148,9 @@ As from the numbers of validation losses computed while training. Edsr is perfor
           v0.2
           1. Researching on SR-gans
           2. Implementation and training of sr-gans
+
+          v0.3
+          1. Research on WR_Gans
+          2. Implementation and Training of Wr-Gans
+          3. Validatipn of WR_Gans
           
