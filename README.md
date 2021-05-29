@@ -102,6 +102,8 @@ reference values for text generation.
 
 ![Image](docs/images/wrgan_art.png)
 
+# Fusion
+ Edsr and Sr-Gan model is fused to create a gigantic output. An Image of 150 * 150 is passed to the fuse model and suprise we got Image of resolution 1200 * 1200 thats really amazing.
 
 # Conclusions
 As from the numbers of validation losses computed while training. Edsr is performing better than SRGans. From the results of wrgans I realised that it is still instable but its really
@@ -117,10 +119,6 @@ an improved version REL-Gan. It takes a lot of GPU to memory to train. 1 batch s
 
 
 
-# Things to do
-
-1. Will merge more models 
-2. Fuse multiple model weights into one
 
 
 
