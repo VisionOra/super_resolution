@@ -56,17 +56,17 @@ class Trainer:
                 loss_mean.reset_states()
 
                 # Compute PSNR on validation dataset
-                psnr_value, ssim_value = self.evaluate(valid_dataset)
+                train_psnr_value, train_ssim_value, val_psnr_value, val_ssim_value = self.evaluate(train_dataset, valid_dataset)
 
                 duration = time.perf_counter() - self.now
-                print(f'{step}/{steps}: loss = {loss_value.numpy():.3f}, SSIM = {ssim_value.numpy():3f}, PSNR {psnr_value.numpy():3f}, ({duration:.2f}s)')
+                print(f'{step}/{steps}: loss = {loss_value.numpy():.3f}, train_SSIM = {train_ssim_value.numpy():3f}, train_PSNR {train_psnr_value.numpy():3f}, val_SSIM = {val_ssim_value.numpy():3f}, val_PSNR {val_psnr_value.numpy():3f} ({duration:.2f}s)')
 
-                if save_best_only and psnr_value <= ckpt.psnr:
+                if save_best_only and val_psnr_value <= ckpt.psnr:
                     self.now = time.perf_counter()
                     # skip saving checkpoint, no PSNR improvement
                     continue
 
-                ckpt.psnr = psnr_value
+                ckpt.psnr = val_psnr_value
                 ckpt_mgr.save()
 
                 self.now = time.perf_counter()
@@ -85,8 +85,8 @@ class Trainer:
 
         return loss_value
 
-    def evaluate(self, dataset):
-        return evaluate(self.checkpoint.model, dataset)
+    def evaluate(self, train_dataset, valid_dataset):
+        return evaluate(self.checkpoint.model, train_dataset, valid_dataset)
 
     def restore(self):
         if self.checkpoint_manager.latest_checkpoint:

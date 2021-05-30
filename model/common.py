@@ -18,16 +18,24 @@ def resolve(model, lr_batch):
     return sr_batch
 
 
-def evaluate(model, dataset):
-    psnr_values, ssim_values = [], []
-    for lr, hr in dataset:
-        sr = resolve(model, lr)
-        psnr_value = psnr(hr, sr)[0]
-        ssim_value = ssim(hr, sr)[0]
-        psnr_values.append(psnr_value)
-        ssim_values.append(ssim_value)
+def cal_scores(model, lr, hr):
+    sr = resolve(model, lr)
+    return psnr(hr, sr)[0], ssim(hr, sr)[0]
+
+def evaluate(model, train_dataset, val_dataset):
+    train_psnr_values, train_ssim_values, val_psnr_values, val_ssim_values = [], [], [], []
+    for (train_lr, train_hr), (val_lr, val_hr) in zip(train_dataset, val_dataset):
+        
+        # Training Evaluation
+        train_psnr_value, train_ssim_value =  cal_scores(model, train_lr, train_hr)
+        train_psnr_values.append(train_psnr_value); train_ssim_values.append(train_ssim_value)
+        
+        # Validation Evaluation 
+        val_psnr_value, val_ssim_value =  cal_scores(model, val_lr, val_hr)
+        val_psnr_values.append(val_psnr_value); val_ssim_values.append(val_ssim_value)
+        
     
-    return [tf.reduce_mean(psnr_values), tf.reduce_mean(ssim_values)]
+    return [tf.reduce_mean(train_psnr_values), tf.reduce_mean(train_ssim_values), tf.reduce_mean(val_psnr_values), tf.reduce_mean(val_ssim_values)]
 
 
 # ---------------------------------------
