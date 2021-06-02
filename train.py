@@ -105,6 +105,18 @@ class EdsrTrainer(Trainer):
         super().train(train_dataset, valid_dataset, steps, evaluate_every, save_best_only)
 
 
+        
+class CNN_based_resnet_Trainer(Trainer):
+    def __init__(self,
+                 model,
+                 checkpoint_dir,
+                 learning_rate=PiecewiseConstantDecay(boundaries=[200000], values=[1e-4, 5e-5])):
+        super().__init__(model, loss=MeanAbsoluteError(), learning_rate=learning_rate, checkpoint_dir=checkpoint_dir)
+
+    def train(self, train_dataset, valid_dataset, steps=300000, evaluate_every=1000, save_best_only=True):
+        super().train(train_dataset, valid_dataset, steps, evaluate_every, save_best_only)
+
+        
 class WdsrTrainer(Trainer):
     def __init__(self,
                  model,
